@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57d71bd8dc464066862b0b730f21307d" Name="Diagram1" DisplayType="true" >
+        <EntityTypeShape EntityType="enTelefonkonyv.enSzemely" Width="1.5" PointX="6" PointY="1.5" />
+        <EntityTypeShape EntityType="enTelefonkonyv.enTelefonszam" Width="1.5" PointX="8.375" PointY="1.625" />
+        <EntityTypeShape EntityType="enTelefonkonyv.enHelyseg" Width="1.5" PointX="3.25" PointY="1.5" />
+        <AssociationConnector Association="enTelefonkonyv.enHelysegenSzemely" />
+        <AssociationConnector Association="enTelefonkonyv.enSzemelyenTelefonszam" />
+        <EntityTypeShape EntityType="enTelefonkonyv.enUsers" Width="1.5" PointX="4.75" PointY="4.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="enTelefonkonyv.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="enTelefonkonyvStoreContainer">
+    <EntitySet Name="enSzemelyek" EntityType="enTelefonkonyv.Store.enSzemelyek" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="enTelefonszamok" EntityType="enTelefonkonyv.Store.enTelefonszamok" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="enHelysegek" EntityType="enTelefonkonyv.Store.enHelysegek" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="enHelysegenSzemely" Association="enTelefonkonyv.Store.enHelysegenSzemely">
+      <End Role="enHelyseg" EntitySet="enHelysegek" />
+      <End Role="enSzemely" EntitySet="enSzemelyek" />
+    </AssociationSet>
+    <AssociationSet Name="enSzemelyenTelefonszam" Association="enTelefonkonyv.Store.enSzemelyenTelefonszam">
+      <End Role="enSzemely" EntitySet="enSzemelyek" />
+      <End Role="enTelefonszam" EntitySet="enTelefonszamok" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="enSzemelyek">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Vezeteknev" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Utonev" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lakcim" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="enHelyseg_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="enTelefonszamok">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Szam" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="enSzemely_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="enHelysegek">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Irsz" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nev" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="enHelysegenSzemely">
+    <End Role="enHelyseg" Type="enTelefonkonyv.Store.enHelysegek" Multiplicity="1" />
+    <End Role="enSzemely" Type="enTelefonkonyv.Store.enSzemelyek" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enHelyseg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="enSzemely">
+        <PropertyRef Name="enHelyseg_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="enSzemelyenTelefonszam">
+    <End Role="enSzemely" Type="enTelefonkonyv.Store.enSzemelyek" Multiplicity="1" />
+    <End Role="enTelefonszam" Type="enTelefonkonyv.Store.enTelefonszamok" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enSzemely">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="enTelefonszam">
+        <PropertyRef Name="enSzemely_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="enTelefonkonyv" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="enTelefonkonyvContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="enSzemelyek" EntityType="enTelefonkonyv.enSzemely" />
+          <EntitySet Name="enTelefonszamok" EntityType="enTelefonkonyv.enTelefonszam" />
+          <EntitySet Name="enHelysegek" EntityType="enTelefonkonyv.enHelyseg" />
+          <AssociationSet Name="enHelysegenSzemely" Association="enTelefonkonyv.enHelysegenSzemely">
+            <End Role="enHelyseg" EntitySet="enHelysegek" />
+            <End Role="enSzemely" EntitySet="enSzemelyek" />
+          </AssociationSet>
+          <AssociationSet Name="enSzemelyenTelefonszam" Association="enTelefonkonyv.enSzemelyenTelefonszam">
+            <End Role="enSzemely" EntitySet="enSzemelyek" />
+            <End Role="enTelefonszam" EntitySet="enTelefonszamok" />
+          </AssociationSet>
+          <EntitySet Name="enUsers" EntityType="enTelefonkonyv.enUsers" />
+        </EntityContainer>
+        <EntityType Name="enSzemely">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vezeteknev" Type="String" Nullable="false" />
+          <Property Name="Utonev" Type="String" Nullable="false" />
+          <Property Name="Lakcim" Type="String" Nullable="false" />
+          <NavigationProperty Name="enHelyseg" Relationship="enTelefonkonyv.enHelysegenSzemely" FromRole="enSzemely" ToRole="enHelyseg" />
+          <NavigationProperty Name="enTelefonszamok" Relationship="enTelefonkonyv.enSzemelyenTelefonszam" FromRole="enSzemely" ToRole="enTelefonszam" />
+        </EntityType>
+        <EntityType Name="enTelefonszam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Szam" Type="String" Nullable="false" />
+          <NavigationProperty Name="enSzemely" Relationship="enTelefonkonyv.enSzemelyenTelefonszam" FromRole="enTelefonszam" ToRole="enSzemely" />
+        </EntityType>
+        <EntityType Name="enHelyseg">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Irsz" Type="String" Nullable="false" />
+          <Property Name="Nev" Type="String" Nullable="false" />
+          <NavigationProperty Name="enSzemelyek" Relationship="enTelefonkonyv.enHelysegenSzemely" FromRole="enHelyseg" ToRole="enSzemely" />
+        </EntityType>
+        <Association Name="enHelysegenSzemely">
+          <End Type="enTelefonkonyv.enHelyseg" Role="enHelyseg" Multiplicity="1" />
+          <End Type="enTelefonkonyv.enSzemely" Role="enSzemely" Multiplicity="*" />
+        </Association>
+        <Association Name="enSzemelyenTelefonszam">
+          <End Type="enTelefonkonyv.enSzemely" Role="enSzemely" Multiplicity="1" />
+          <End Type="enTelefonkonyv.enTelefonszam" Role="enTelefonszam" Multiplicity="*" />
+        </Association>
+        <EntityType Name="enUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="String" Nullable="false" />
+          <Property Name="Pwd" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="enTelefonkonyvStoreContainer" CdmEntityContainer="enTelefonkonyvContainer">
+    <EntitySetMapping Name="enSzemelyek">
+      <EntityTypeMapping TypeName="IsTypeOf(enTelefonkonyv.enSzemely)">
+        <MappingFragment StoreEntitySet="enSzemelyek">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vezeteknev" ColumnName="Vezeteknev" />
+          <ScalarProperty Name="Utonev" ColumnName="Utonev" />
+          <ScalarProperty Name="Lakcim" ColumnName="Lakcim" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="enTelefonszamok">
+      <EntityTypeMapping TypeName="IsTypeOf(enTelefonkonyv.enTelefonszam)">
+        <MappingFragment StoreEntitySet="enTelefonszamok">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Szam" ColumnName="Szam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="enHelysegek">
+      <EntityTypeMapping TypeName="IsTypeOf(enTelefonkonyv.enHelyseg)">
+        <MappingFragment StoreEntitySet="enHelysegek">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Irsz" ColumnName="Irsz" />
+          <ScalarProperty Name="Nev" ColumnName="Nev" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="enHelysegenSzemely" TypeName="enTelefonkonyv.enHelysegenSzemely" StoreEntitySet="enSzemelyek">
+      <EndProperty Name="enHelyseg">
+        <ScalarProperty Name="Id" ColumnName="enHelyseg_Id" />
+      </EndProperty>
+      <EndProperty Name="enSzemely">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="enSzemelyenTelefonszam" TypeName="enTelefonkonyv.enSzemelyenTelefonszam" StoreEntitySet="enTelefonszamok">
+      <EndProperty Name="enSzemely">
+        <ScalarProperty Name="Id" ColumnName="enSzemely_Id" />
+      </EndProperty>
+      <EndProperty Name="enTelefonszam">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
